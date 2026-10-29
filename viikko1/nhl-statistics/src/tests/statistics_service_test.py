@@ -5,7 +5,7 @@ from pathlib import Path
 # Lisätään src-hakemisto Pythonin hakupolkuun.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from statistics_service import StatisticsService
+from statistics_service import StatisticsService, SortBy
 from player import Player
 
 
@@ -29,8 +29,7 @@ class TestStatisticsService(unittest.TestCase):
         self.assertEqual(player.name, "Lemieux")
 
     def test_search_returns_none_when_player_not_found(self):
-        player = self.stats.search("Unknown")
-        self.assertIsNone(player)
+        self.assertIsNone(self.stats.search("Unknown"))
 
     def test_team_returns_players_of_requested_team(self):
         players = self.stats.team("EDM")
@@ -40,23 +39,38 @@ class TestStatisticsService(unittest.TestCase):
         )
 
     def test_team_returns_empty_list_when_team_not_found(self):
-        players = self.stats.team("XXX")
-        self.assertEqual(players, [])
+        self.assertEqual(self.stats.team("XXX"), [])
 
-    def test_top_returns_players_in_points_order(self):
+    def test_top_defaults_to_points(self):
         players = self.stats.top(3)
         self.assertEqual(
             [player.name for player in players],
             ["Gretzky", "Lemieux", "Yzerman"]
         )
+
+    def test_top_by_points(self):
+        players = self.stats.top(3, SortBy.POINTS)
         self.assertEqual(
-            [player.points for player in players],
-            [124, 99, 98]
+            [player.name for player in players],
+            ["Gretzky", "Lemieux", "Yzerman"]
+        )
+
+    def test_top_by_goals(self):
+        players = self.stats.top(3, SortBy.GOALS)
+        self.assertEqual(
+            [player.name for player in players],
+            ["Lemieux", "Yzerman", "Kurri"]
+        )
+
+    def test_top_by_assists(self):
+        players = self.stats.top(3, SortBy.ASSISTS)
+        self.assertEqual(
+            [player.name for player in players],
+            ["Gretzky", "Yzerman", "Lemieux"]
         )
 
     def test_top_zero_returns_empty_list(self):
-        players = self.stats.top(0)
-        self.assertEqual(players, [])
+        self.assertEqual(self.stats.top(0), [])
 
 
 if __name__ == "__main__":
