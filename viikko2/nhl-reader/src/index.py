@@ -1,7 +1,7 @@
-from player import Player
+"""Entry point for the application."""
 
 def main():
-    pass
+    """Run the application."""
 
 if __name__ == "__main__":
     main()
