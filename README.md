@@ -5,4 +5,5 @@
 - Viikko 2: tehtävät 6–7  
 
 [webcounter](https://github.com/passijami/webcounter)  
-- Viikko 3: tehtävät 2–
+- Viikko 3: tehtävät 2–4
+
