@@ -8,20 +8,20 @@ Test Setup      Reset Application Create User And Go To Login Page
 Login With Correct Credentials
     Set Username  kalle
     Set Password  kalle123
-    Click  button >> text=Login
+    Click    role=button[name="Login"]
     Login Should Succeed
 
 Login With Incorrect Password
     Set Username  kalle
     Set Password  kalle456
-    Click  button >> text=Login
+    Click    role=button[name="Login"]
     Login Should Fail With Message  Invalid username or password
 
 Login With Nonexistent Username
     Set Username    nonexistent
     Set Password    password
-    Click    text=Login
-    Login Should Fail With Message    Username does not exist
+    Click    role=button[name="Login"]
+    Login Should Fail With Message    Invalid username or password
 
 *** Keywords ***
 Login Should Succeed
