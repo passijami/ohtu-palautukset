@@ -21,4 +21,12 @@ class Ostoskori:
         pass
 
     def ostokset(self):
-        return [Ostos(tuote) for tuote in self._tuotteet]
+        ostokset = []
+        for tuote in self._tuotteet:
+            ostos = next((ostos for ostos in ostokset
+                          if ostos.tuotteen_nimi() == tuote.nimi()), None)
+            if ostos is None:
+                ostokset.append(Ostos(tuote))
+            else:
+                ostos.muuta_lukumaaraa(1)
+        return ostokset
