@@ -18,7 +18,7 @@ class Ostoskori:
         self._tuotteet.remove(poistettava)
 
     def tyhjenna(self):
-        pass
+        self._tuotteet.clear()
 
     def ostokset(self):
         ostokset = []
